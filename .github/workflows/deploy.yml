@@ -35,7 +35,7 @@ jobs:
       - name: Deploy to Vercel
         id: deploy
         run: |
-          vercel_url=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --project=${{ secrets.ROJECT_ID }} --yes)
+          vercel_url=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes)
           echo "Deployment URL: $vercel_url"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
