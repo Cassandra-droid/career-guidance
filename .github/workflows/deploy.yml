@@ -35,39 +35,27 @@ jobs:
       - name: Deploy to Vercel
         id: deploy
         run: |
-          vercel_url=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }} --confirm)
+          vercel_url=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --project=${{ secrets.ROJECT_ID }} --yes)
           echo "Deployment URL: $vercel_url"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: Get Last Successful Deployment ID
         id: get_last_successful_deployment
         run: |
-          deployments=$(vercel ls --scope=${{ secrets.VERCEL_ORG_ID }} --token=${{ secrets.VERCEL_TOKEN }})
+          deployments=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }})
           last_successful_id=$(echo "$deployments" | grep -E '✔' | awk '{print $2}' | head -n 1)
           echo "LAST_SUCCESSFUL_DEPLOYMENT_ID=$last_successful_id" >> $GITHUB_ENV
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: Rollback on Failure
         if: failure()
-        run: vercel rollback $LAST_SUCCESSFUL_DEPLOYMENT_ID --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }}
+        run: vercel rollback $LAST_SUCCESSFUL_DEPLOYMENT_ID --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
-      - name: Install Sentry CLI
-        run: npm install -g @sentry/cli
-
-      - name: Create Sentry Release
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        run: |
-          npx sentry-cli releases new -p javascript-react 6deca46
-          npx sentry-cli releases set-commits --auto 6deca46
-          npx sentry-cli releases finalize 6deca46
+   
