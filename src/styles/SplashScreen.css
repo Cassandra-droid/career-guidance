@@ -1,0 +1,20 @@
+/* SplashScreen.css */
+.splash-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; /* Set the background color */
+  }
+  
+  .splash-logo {
+    width: 150px;
+    animation: fadeInOut 3s ease; /* Adjust animation duration to match timeout */
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  

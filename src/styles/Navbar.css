@@ -1,0 +1,224 @@
+/* Basic styling for the navbar */
+.navbar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: whitesmoke;
+  padding: 0 20px;
+}
+
+.leftside {
+  display: flex;
+  align-items: center;
+}
+
+.leftside img {
+  width: 80px;
+  height: auto;
+}
+
+.rightside {
+  display: flex;
+  align-items: center;
+}
+
+/* Links in the right side of navbar */
+.rightside a {
+  color: black; /* Updated color for visibility */
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+/* Toggle button for small screens */
+.rightside .navbar-actions .navbar-btn {
+  /* Hidden on larger screens */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: black;
+  font-size: 15px;
+}
+
+.rightside button:hover {
+  color: purple;
+}
+
+/* Action buttons */
+.navbar-actions {
+  display: flex;
+  align-items: center; /* Ensure navbar actions are visible on larger screens */
+}
+
+.navbar-actions .navbar-btn {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 2px solid purple;
+  color: purple;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.navbar-actions .navbar-btn:hover {
+  background-color: purple;
+  color: white;
+}
+
+.navbar-actions .navbar-btn:last-child {
+  background-color: purple;
+  color: white;
+  border: none;
+}
+
+/* Hidden links for small screens */
+.hiddenLinks {
+  display: none;
+}
+
+/* Toggle button */
+.toggle-button {
+  display: none; /* Hidden on larger screens */
+}
+
+/* Welcome message styling */
+.welcome-message {
+  position: absolute; /* Position the message absolutely */
+  top: 80px; /* Place it below the navbar */
+  left: 0;
+  right: 0;
+  background-color: whitesmoke; /* Match the navbar background */
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ensure it appears above other content */
+}
+
+.welcome-message h2 {
+  margin: 0;
+  color: purple; /* Header color */
+}
+
+.welcome-message p {
+  margin: 10px 0;
+}
+
+/* Style for option buttons */
+.option-button {
+  background-color: purple; /* Option button background color */
+  color: white; /* Option button text color */
+  border: none;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.option-button:hover {
+  background-color: #6a0dad; /* Darker purple on hover */
+}
+
+/* Media query for screen widths smaller than 768px */
+@media (max-width: 768px) {
+  .rightside a, /* Hide rightside links on small screens */
+  .navbar-actions { /* Hide navbar actions on small screens */
+    display: none;
+  }
+  .toggle-button {
+    display: block; /* Show toggle button on small screens */
+  }
+
+  /* Show the toggle button on small screens */
+  .rightside button {
+    display: block;
+  }
+
+  /* Position hidden links when navbar is open */
+  .navbar #open .hiddenLinks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .hiddenLinks a {
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    width: 100%;
+  }
+
+  /* Style for Sign Up and Login buttons in hiddenLinks on small screens */
+  .hiddenLinks .navbar-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+}
+
+/* Link styling */
+.navbar a {
+  margin-right: 1.5rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+  text-decoration-color: purple;
+}
+
+/* Overlay for the welcome message */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  align-items: flex-start; /* Align to the top */
+  z-index: 1000; /* Ensure it's on top */
+}
+
+/* Welcome message styling */
+.welcome-message {
+  background-color: white; /* Background for the message box */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px; /* Margin to position it away from the top and right edges */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative; /* Position relative for absolute positioning of the cancel button */
+}
+
+/* Cancel button */
+.cancel-button {
+  position: absolute; /* Position it relative to the welcome message */
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: purple;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  color: red; /* Change color on hover for visibility */
+}
+

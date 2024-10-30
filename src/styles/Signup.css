@@ -1,0 +1,113 @@
+.login-container {
+    padding: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    width: 800px;
+    margin: 0 auto;
+    background-color: whitesmoke;
+}
+
+.login-form img {
+    width: 110px;
+    height: auto;
+}
+
+.login-form {
+    flex: 1;
+    padding: 2rem;
+    background: white;
+    border-radius: 100px;
+    max-width: 350px;
+    margin-right: 4rem;
+}
+
+.welcome-image {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 30px;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: purple;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: purple;
+}
+
+.forgot-password-link {
+    display: block;
+    margin: 0.5rem 0;
+    text-align: right;
+    color: purple;
+}
+
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.google-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: purple;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.google-button svg {
+    margin-right: 0.5rem;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 1rem;
+}
