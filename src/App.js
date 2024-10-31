@@ -4,7 +4,7 @@ import Home from "./pages/Home.js";
 import Services from "./pages/Services.js";
 import Resources from "./pages/Resources.js";
 import About from "./pages/About.js";
-import Contact from "./pages/Contact.js";
+import Contact from "./pages/ContactUs.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Navbar from "./components/Navbar.js";
