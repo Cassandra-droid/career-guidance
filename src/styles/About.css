@@ -1,0 +1,57 @@
+.about-container {
+  padding: 2em;
+  background-color: white; /* Light purple background for contrast */
+  color: purple; /* Deep purple for text */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.about-container h1 {
+  font-size: 2.5em;
+  color: #4b0082; /* Deep purple for headings */
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.about-container h2 {
+  font-size: 1.8em;
+  color: #6a0dad; /* Slightly lighter purple for subheadings */
+  margin-top: 1.5em;
+  border-bottom: 2px solid #4b0082; /* Underline effect */
+  padding-bottom: 0.2em;
+}
+
+.about-container p {
+  line-height: 1.8;
+  margin-bottom: 1em;
+  color: #333; /* Dark gray for main text readability */
+}
+
+/* Optional: Styling for highlighted sections within text */
+.about-highlight {
+  background-color: white; /* Purple background */
+  color: purple; /* White text */
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Button styling for any call-to-action within About Us */
+.about-button {
+  background-color: white;
+  color: purple;
+  padding: 0.8em 1.5em;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.about-button:hover {
+  background-color: #6a0dad; /* Slightly lighter on hover */
+}
+
