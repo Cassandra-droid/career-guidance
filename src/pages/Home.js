@@ -7,9 +7,11 @@ import "../styles/Home.css";
 
 function Home() {
   const navigate = useNavigate(); 
-  const handleNewUserClick = () => {
-    navigate("/signup"); // Navigate to Signup page
+  
+const handleExistingUserClick = () => {
+  navigate("/login"); // Navigate to Login page
 };
+
   return (
    <div className="homepage">
       <div className="left-section">
@@ -27,7 +29,7 @@ function Home() {
           <img src={image2} alt="" className="moving-image" />
           <img src={image3} alt="" className="moving-image" />
         </div>
-        <button className="get-started-btn" onClick={handleNewUserClick}>Get Started</button>
+        <button className="get-started-btn" onClick={handleExistingUserClick}>Get Started</button>
         
       </div>
     </div>
