@@ -9,6 +9,7 @@ import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
+import Dashboard from "./components/Dashboard.js"
 import SplashScreen from "./components/SplashScreen.js";
 import Socialicons from "./components/Socialicons.js";
 
