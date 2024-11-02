@@ -17,7 +17,7 @@ function Layout() {
   const location = useLocation();
   
   // List of paths where the Navbar should not appear
-  const noNavbarPaths = ["/signup", "/login"]; // Add more paths as needed
+  const noNavbarPaths = ["/signup", "/login", "/dashboard"]; // Add more paths as needed
 
   return (
     <>
@@ -32,6 +32,7 @@ function Layout() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </>

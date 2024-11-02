@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Signup.css"; // Import your CSS styles
+import "../styles/Signup.css";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import Woman from "../assets/woman.jpg";
@@ -9,20 +9,45 @@ function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Add your login logic here
+
+        const user = { username, password };
+
+
+    try {
+      const response = await fetch("http://localhost:9000/api/auth/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login Success:', data);
+        window.location.href = "/dashboard"; 
+      } else {
+        alert(data.message); 
+      }
+    } catch (error) {
+      alert('An error occurred while logging in.');
+    }
+    
     };
 
     return (
         <div className="login-container">
             <div className="login-form">
-                <img src={Logo} alt="" />
+                <img src={Logo} alt="Logo" />
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
@@ -34,7 +59,6 @@ function Login() {
                             required
                         />
                     </div>
-                   
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <div className="password-container">
@@ -53,6 +77,7 @@ function Login() {
                     <Link to="/forgot-password" className="forgot-password-link">
                         Forgot Password?
                     </Link>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit" className="login-button">Login</button>
                 </form>
                 <div className="social-login">
@@ -67,7 +92,7 @@ function Login() {
                 </p>
             </div>
             <div className="welcome-image">
-                <img src={Woman} alt="" />
+                <img src={Woman} alt="Welcome" />
                 <h2>Welcome back to the journey of 1000 miles one step at a time.</h2>
             </div>
         </div>

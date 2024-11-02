@@ -9,22 +9,68 @@ function Signup() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleLogin = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        // Add your login logic here
+         // Validate email
+    if (!email.includes("@") || !email.includes(".com")) {
+        setErrorMessage("Please enter a valid email address with '@' and '.com'.");
+        return;
+    }
+
+    // Validate password
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        setErrorMessage("Password must be at least 8 characters long and contain both letters and numbers.");
+        return;
+    }
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        setErrorMessage("Passwords do not match.");
+        return;
+    }
+
+    const user = { username, email, password };
+
+    try {
+        const response = await fetch("http://localhost:9000/api/auth/signup", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log('Signup Success:', data);
+            alert('Signup successful!');
+            window.location.href = '/dashboard';
+        } else {
+            alert(data.message); // Show error message from server
+        }
+    } catch (error) {
+        alert('An error occurred while signing up.');
+    }
+
+   
+
     };
 
     return (
         <div className="login-container">
             <div className="login-form">
-                <img src={Logo} alt="" />
-                <form onSubmit={handleLogin}>
+                <img src={Logo} alt="Logo" />
+                <form onSubmit={handleSignup}>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input
@@ -60,7 +106,17 @@ function Signup() {
                             </button>
                         </div>
                     </div>
-                    
+                    <div className="form-group">
+                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit" className="login-button">Sign Up</button>
                 </form>
                 <div className="social-login">
@@ -75,8 +131,8 @@ function Signup() {
                 </p>
             </div>
             <div className="welcome-image">
-                <img src={Woman} alt="" />
-                <h2>Welcome:Sign up today for our AI Career Guidance web!</h2>
+                <img src={Woman} alt="Welcome" />
+                <h2>Welcome: Sign up today for our AI Career Guidance web!</h2>
             </div>
         </div>
     );

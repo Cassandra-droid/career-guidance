@@ -9,6 +9,12 @@
     background-color: whitesmoke;
 }
 
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+
 .login-form img {
     width: 110px;
     height: auto;
