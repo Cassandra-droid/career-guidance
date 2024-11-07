@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../styles//Resources.css'; // Import the CSS file
 
 const Resources = () => {
   const [resources] = useState([
@@ -10,13 +11,13 @@ const Resources = () => {
   ]);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="resources-container">
       <h1>Career Development Resources</h1>
       <p>Explore resources to help advance your career and acquire new skills:</p>
       
       <div>
         {resources.map(resource => (
-          <div key={resource.id} style={resourceCardStyle}>
+          <div key={resource.id} className="resource-card">
             <h2>{resource.title}</h2>
             <p>Type: {resource.type}</p>
             <a href={resource.link} target="_blank" rel="noopener noreferrer">
@@ -27,14 +28,6 @@ const Resources = () => {
       </div>
     </div>
   );
-};
-
-// Inline styling for simplicity
-const resourceCardStyle = {
-  border: '1px solid #ddd',
-  padding: '15px',
-  marginBottom: '10px',
-  borderRadius: '5px',
 };
 
 export default Resources;

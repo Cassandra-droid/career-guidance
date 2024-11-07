@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Services.css'; // Import the CSS file
 
 const Services = () => {
   const services = [
@@ -35,13 +36,13 @@ const Services = () => {
   ];
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="services-container">
       <h1>Our Services</h1>
       <p>Explore the services offered by the E-Career Guidance System:</p>
-      
+
       <div>
         {services.map((service) => (
-          <div key={service.id} style={serviceCardStyle}>
+          <div key={service.id} className="service-card">
             <h2>{service.title}</h2>
             <p>{service.description}</p>
           </div>
@@ -49,14 +50,6 @@ const Services = () => {
       </div>
     </div>
   );
-};
-
-// Inline styling for simplicity
-const serviceCardStyle = {
-  border: '1px solid #ddd',
-  padding: '15px',
-  marginBottom: '10px',
-  borderRadius: '5px',
 };
 
 export default Services;

@@ -1,0 +1,45 @@
+/* Resources.css */
+
+.resources-container {
+    padding: 20px;
+  }
+  
+  .resources-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: left; /* Align the title to the left */
+  }
+  
+  .resources-container p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-align: left; /* Align the paragraph text to the left */
+  }
+  
+  .resource-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .resource-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    text-align: left; /* Align the resource title to the left */
+  }
+  
+  .resource-card p {
+    font-size: 1rem;
+    text-align: left; /* Align the description to the left */
+  }
+  
+  .resource-card a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .resource-card a:hover {
+    text-decoration: underline;
+  }
+  
