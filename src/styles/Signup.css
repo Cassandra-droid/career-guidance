@@ -69,6 +69,15 @@ input {
     position: relative;
 }
 
+.login-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    gap: 2rem;
+}
+
+
 .password-container button {
     position: absolute;
     right: 10px;

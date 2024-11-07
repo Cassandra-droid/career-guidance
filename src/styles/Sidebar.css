@@ -1,0 +1,46 @@
+/* Sidebar.css */
+.sidebar {
+  background-color: #6a1b9a; /* Purple background */
+  color: white;
+  width: 210px;
+  padding: 16px; /* Add some padding for better spacing */
+  
+}
+
+.sidebar .MuiListItemText-root {
+  color: purple; /* Keep text color white */
+}
+
+.sidebar .MuiListItem-button:hover {
+  background-color: #8e24aa; /* Lighter purple on hover for better contrast */
+}
+
+.sidebar .MuiCollapse-root {
+  background-color: #7b1fa2; /* Slightly darker purple for expanded section */
+}
+
+.sidebar .MuiListItem-root {
+  padding-left: 10px;
+}
+
+.sidebar .MuiListItemText-primary {
+  font-weight: bold;
+  color: black; /* Keep text bold and white */
+}
+
+.sidebar .MuiSvgIcon-root {
+  color: white; /* Ensure icons are also white */
+}
+
+.sidebar .MuiListItem {
+  padding: 8px 16px; /* Add padding to list items for better click area */
+}
+
+.sidebar .welcome-message {
+  color: white; /* Ensure welcome message text is white */
+  margin-bottom: 16px; /* Add some spacing */
+}
+
+.sidebar .divider {
+  background-color: #8e24aa; /* Set divider color to match the theme */
+}

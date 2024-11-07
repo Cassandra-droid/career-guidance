@@ -7,23 +7,35 @@ import About from "./pages/About.js";
 import Contact from "./pages/ContactUs.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
+import CareerRecommendations from "./pages/CareerRecommendations.js";
+import UserProfileForm from "./pages/UserProfileForm.js";
+import LearningPath from "./pages/LearningPath.js";
 import Navbar from "./components/Navbar.js";
+import AltNavbar from "./components/AltNavbar.js";
 import Footer from "./components/Footer.js";
-import Dashboard from "./pages/Dashboard.js"
+import Dashboard from "./pages/Dashboard.js";
 import SplashScreen from "./components/SplashScreen.js";
 import Socialicons from "./components/Socialicons.js";
+import Sidebar from "./components/Sidebar.js"; // Import Sidebar
 
-// New component to manage the layout
 function Layout() {
   const location = useLocation();
-  
-  // List of paths where the Navbar should not appear
-  const noNavbarPaths = ["/signup", "/login", "/dashboard"]; // Add more paths as needed
+
+  // List of paths where Navbar and Sidebar visibility should be controlled
+  const noNavbarPaths = ["/signup", "/login", "/dashboard", "/career", "/profile", "/learning"];
+  const altNavbarPaths = ["/career", "/profile", "/dashboard", "/learning"]; 
+  const withSidebarPaths = ["/dashboard", "/career", "/profile", "/learning"]; // Pages that should display the sidebar
 
   return (
     <>
       {/* Conditionally render the Navbar */}
       {!noNavbarPaths.includes(location.pathname) && <Navbar />}
+      {/* Conditionally render the Navbar or AltNavbar */}
+      {altNavbarPaths.includes(location.pathname) && <AltNavbar /> }
+
+      {/* Conditionally render the Sidebar */}
+      {withSidebarPaths.includes(location.pathname) && <Sidebar />}
+
       <Socialicons />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -34,6 +46,9 @@ function Layout() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/career" element={<CareerRecommendations />} />
+        <Route path="/profile" element={<UserProfileForm />} />
+        <Route path="/learning" element={<LearningPath />} />
       </Routes>
       <Footer />
     </>
@@ -53,7 +68,7 @@ function App() {
         <SplashScreen onLoadingComplete={handleLoadingComplete} />
       ) : (
         <Router>
-          <Layout /> {/* Use the new Layout component */}
+          <Layout />
         </Router>
       )}
     </div>

@@ -15,12 +15,34 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
 
-    db.query(sql, [username, email, hashedPassword], (err) => {
+    db.query(sql, [username, email, hashedPassword], (err, result) => {
       if (err) {
         console.error("Database error during signup:", err);
         return res.status(500).json({ message: 'Database error' });
       }
-      res.status(201).json({ message: 'User created successfully' });
+
+      // Retrieve the newly created user by ID
+      const newUserId = result.insertId;
+      const getUserSql = 'SELECT id, username FROM users WHERE id = ?';
+      
+      db.query(getUserSql, [newUserId], (err, results) => {
+        if (err) {
+          console.error("Database error retrieving new user:", err);
+          return res.status(500).json({ message: 'Database error' });
+        }
+        
+        const user = results[0];
+        
+        // Generate a JWT token with the user's ID and username
+        const token = jwt.sign(
+          { id: user.id, username: user.username },
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+        );
+
+        // Respond with a message, token, and username
+        res.json({ message: 'Signup successful', token, username: user.username });
+      });
     });
   } catch (error) {
     console.error("Error creating user:", error);
@@ -54,7 +76,48 @@ export const login = (req, res) => {
       return res.status(400).json({ message: 'Invalid password' });
     }
 
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ message: 'Login successful', token });
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Respond with a message, token, and username
+    res.json({ message: 'Login successful', token, username: user.username });
   });
+};
+
+// Get User Data controller
+export const getUserData = (req, res) => {
+  // Get the token from the request header
+  const token = req.headers.authorization?.split(" ")[1]; // Bearer token
+
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Retrieve user information from the database
+    const sql = 'SELECT username FROM users WHERE id = ?';
+    db.query(sql, [decoded.id], (err, results) => {
+      if (err) {
+        console.error('Database error while fetching user data:', err);
+        return res.status(500).json({ message: 'Database error', error: err });
+      }
+      if (results.length === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Respond with the username
+      res.json({ userId: user.id });
+      res.json({ username: results[0].username });
+    });
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return res.status(401).json({ message: 'Invalid token' });
+  }
 };

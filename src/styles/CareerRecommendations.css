@@ -1,0 +1,74 @@
+.career-recommendations-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 240px; /* Adjust according to your sidebar width */
+}
+
+h2 {
+    text-align: center;
+    color: purple;
+}
+
+.career-suggestions,
+.skill-match,
+.emerging-fields {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: purple;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* Skill Match Percentage Circular Progress */
+.skill-match {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the content */
+}
+
+.circular-progress {
+    position: relative;
+    display: inline-block;
+    width: 100px; /* Adjust the size as needed */
+    height: 100px;
+}
+
+.circular-progress svg {
+    transform: rotate(-90deg); /* Rotate to start from the top */
+}
+
+.circular-progress circle {
+    fill: transparent; /* No fill */
+    stroke-width: 10; /* Width of the stroke */
+}
+
+.circular-progress .progress {
+    stroke: purple; /* Color for the percentage */
+}
+
+.circular-progress .background {
+    stroke: whitesmoke; /* Background circle color */
+}

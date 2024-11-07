@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import Logo from "../assets/logo.png";
 import Woman from "../assets/woman.jpg";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -10,6 +10,8 @@ function Login() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [loggedInUsername, setLoggedInUsername] = useState(""); // New state for logged-in username
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -17,37 +19,40 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        const user = { username, password };
-
-
-    try {
-      const response = await fetch("http://localhost:9000/api/auth/login", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log('Login Success:', data);
-        window.location.href = "/dashboard"; 
-      } else {
-        alert(data.message); 
-      }
-    } catch (error) {
-      alert('An error occurred while logging in.');
-    }
     
+        const user = { username, password };
+    
+        try {
+            const response = await fetch("http://localhost:9000/api/auth/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                console.log('Login Success:', data);
+                localStorage.setItem('token', data.token); // Store token
+                localStorage.setItem('username', data.username); 
+                localStorage.setItem('Id', data.id);// Store username
+                navigate("/dashboard"); // Navigate to dashboard
+            } else {
+                setErrorMessage(data.message);
+            }
+        } catch (error) {
+            setErrorMessage('An error occurred while logging in.');
+        }
     };
+    
 
     return (
         <div className="login-container">
             <div className="login-form">
                 <img src={Logo} alt="Logo" />
+                {loggedInUsername && <h2>Welcome back, {loggedInUsername}!</h2>} {/* Welcome message */}
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
