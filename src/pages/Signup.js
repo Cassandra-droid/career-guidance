@@ -12,7 +12,7 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [signedInUsername, setSignedInUsername] = useState(""); 
+    const [signedInUsername] = useState(""); 
     const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {

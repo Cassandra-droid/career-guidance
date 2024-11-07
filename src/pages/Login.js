@@ -10,7 +10,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [loggedInUsername, setLoggedInUsername] = useState(""); // New state for logged-in username
+    const [loggedInUsername] = useState(""); // New state for logged-in username
     const navigate = useNavigate(); // Initialize useNavigate
 
     const togglePasswordVisibility = () => {
