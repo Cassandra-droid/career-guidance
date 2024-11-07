@@ -8,16 +8,16 @@
 
 .about-container h1 {
   font-size: 2.5em;
-  color: #4b0082; /* Deep purple for headings */
+  color: purple; /* Deep purple for headings */
   text-align: center;
   margin-bottom: 0.5em;
 }
 
 .about-container h2 {
   font-size: 1.8em;
-  color: #6a0dad; /* Slightly lighter purple for subheadings */
+  color: purple; /* Slightly lighter purple for subheadings */
   margin-top: 1.5em;
-  border-bottom: 2px solid #4b0082; /* Underline effect */
+  border-bottom: 2px solid purple; /* Underline effect */
   padding-bottom: 0.2em;
 }
 
