@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history
+          fetch-depth: 0
 
       - name: Cache Node.js modules
         uses: actions/cache@v3
@@ -35,24 +35,26 @@ jobs:
       - name: Deploy to Vercel
         id: deploy
         run: |
-          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+          vercel --prod --confirm --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: Get Last Successful Deployment ID
         id: get_last_successful_deployment
         run: |
           deployments=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.PROJECT_ID }} --prod)
-          last_successful_id=$(echo "$deployments" | grep -E 'Production.*READY' | awk '{print $1}' | head -n 1)
+          last_successful_id=$(echo "$deployments" | grep 'Production' | grep -E 'READY' | awk '{print $1}' | head -n 1)
           echo "LAST_SUCCESSFUL_DEPLOYMENT_ID=$last_successful_id" >> $GITHUB_ENV
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
+      - name: Debugging Last Deployment ID
+        run: echo "Last successful deployment ID: $LAST_SUCCESSFUL_DEPLOYMENT_ID"
+
       - name: Rollback on Failure
         if: failure()
         run: |
-          if [[ -n "$LAST_SUCCESSFUL_DEPLOYMENT_ID" ]]; then
+          if [ -n "$LAST_SUCCESSFUL_DEPLOYMENT_ID" ]; then
             vercel rollback $LAST_SUCCESSFUL_DEPLOYMENT_ID --token=${{ secrets.VERCEL_TOKEN }}
           else
             echo "No previous successful deployment found for rollback."
