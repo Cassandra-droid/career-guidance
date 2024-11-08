@@ -35,8 +35,7 @@ jobs:
       - name: Deploy to Vercel
         id: deploy
         run: |
-          vercel_url=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes)
-          echo "Deployment URL: $vercel_url"
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
@@ -44,18 +43,19 @@ jobs:
       - name: Get Last Successful Deployment ID
         id: get_last_successful_deployment
         run: |
-          deployments=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }})
-          last_successful_id=$(echo "$deployments" | grep -E '✔' | awk '{print $2}' | head -n 1)
+          deployments=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.PROJECT_ID }} --prod)
+          last_successful_id=$(echo "$deployments" | grep -E 'Production.*READY' | awk '{print $1}' | head -n 1)
           echo "LAST_SUCCESSFUL_DEPLOYMENT_ID=$last_successful_id" >> $GITHUB_ENV
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: Rollback on Failure
         if: failure()
-        run: vercel rollback $LAST_SUCCESSFUL_DEPLOYMENT_ID --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [[ -n "$LAST_SUCCESSFUL_DEPLOYMENT_ID" ]]; then
+            vercel rollback $LAST_SUCCESSFUL_DEPLOYMENT_ID --token=${{ secrets.VERCEL_TOKEN }}
+          else
+            echo "No previous successful deployment found for rollback."
+          fi
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-
-   
